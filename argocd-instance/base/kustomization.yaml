@@ -1,0 +1,9 @@
+kind: Kustomization
+
+namespace: argocd-stresstest
+
+resources:
+- appset.yaml
+- argocd.yaml
+- namespace.yaml
+# - repo-secret.yaml

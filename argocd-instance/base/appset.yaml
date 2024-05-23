@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: stresstest
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - git:
+        repoURL: CHANGEME
+        revision: HEAD
+        files:
+        - path: "instances/*/config.json"
+  template:
+    metadata:
+      name: 'stresstest-{{.id}}'
+    spec:
+      project: default
+      source:
+        repoURL: CHANGEME
+        targetRevision: HEAD
+        path: "stresstest"
+        helm:
+          releaseName: stresstest-{{.id}}
+          values: |
+            namespace: stresstest-{{.id}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: stresstest-{{.id}}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

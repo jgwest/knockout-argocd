@@ -1,0 +1,105 @@
+apiVersion: argoproj.io/v1beta1
+kind: ArgoCD
+metadata:
+  name: argocd
+spec:
+  controller:
+    processors: {}
+    resources:
+      limits:
+        cpu: "3"
+        memory: 8Gi
+      requests:
+        cpu: 1500m
+        memory: 5Gi
+    sharding: {}
+  sso:
+    provider: dex
+    dex:
+      openShiftOAuth: true
+      groups:
+        - CHANGEME
+      resources:
+        limits:
+          cpu: 50m
+          memory: 150Mi
+        requests:
+          cpu: 10m
+          memory: 100Mi
+  grafana:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  ha:
+    enabled: false
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+  initialSSHKnownHosts:
+    excludedefaulthosts: true
+    keys: |
+      CHANGEME
+  prometheus:
+    enabled: false
+    ingress:
+      enabled: false
+    route:
+      enabled: false
+  rbac:
+    defaultPolicy: ""
+    policy: |
+      g, CHANGEME
+    scopes: '[groups]'
+  redis:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 64Mi
+      requests:
+        cpu: 5m
+        memory: 32Mi
+  repo:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 192Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+  applicationSet:
+    resources:
+      limits:
+        cpu: "250m"
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 128Mi
+  server:
+    autoscale:
+      enabled: false
+    grpc:
+      ingress:
+        enabled: false
+    ingress:
+      enabled: false
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 160Mi
+    route:
+      enabled: true
+      tls:
+        termination: reencrypt
+    service:
+      type: ""
+  tls:
+    ca: {}
