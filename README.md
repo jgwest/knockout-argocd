@@ -23,6 +23,7 @@ Possible workarounds: https://access.redhat.com/solutions/7006291
 
 ## Cleanup
 ```
+oc delete appset stresset -n argocd-stresstest
 oc delete ns -l argocd.argoproj.io/managed-by=argocd-stresstest
 oc delete ns argocd-stresstest
 ```
