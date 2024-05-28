@@ -4,7 +4,9 @@ metadata:
   name: argocd
 spec:
   controller:
-    processors: {}
+    processors:
+      operation: 25
+      status: 50
     resources:
       limits:
         cpu: "3"
@@ -13,12 +15,15 @@ spec:
         cpu: 1500m
         memory: 5Gi
     sharding: {}
+    env:
+    - name: ARGOCD_K8S_CLIENT_QPS
+      value: '300'
+    - name: ARGOCD_K8S_CLIENT_BURST
+      value: '600'
   sso:
     provider: dex
     dex:
       openShiftOAuth: true
-      groups:
-        - CHANGEME
       resources:
         limits:
           cpu: 50m
@@ -43,8 +48,6 @@ spec:
         memory: 128Mi
   initialSSHKnownHosts:
     excludedefaulthosts: true
-    keys: |
-      CHANGEME
   prometheus:
     enabled: false
     ingress:
@@ -54,7 +57,7 @@ spec:
   rbac:
     defaultPolicy: ""
     policy: |
-      g, CHANGEME
+      g, system:cluster-admins, role:admin
     scopes: '[groups]'
   redis:
     resources:

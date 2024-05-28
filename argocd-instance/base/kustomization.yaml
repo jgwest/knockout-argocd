@@ -17,33 +17,15 @@ patches:
   patch: |-
     - op: replace
       path: /spec/generators/0/git/repoURL
-      value: ssh://git@...
-- target:
-    group: argoproj.io
-    version: v1beta1
-    kind: ArgoCD
-    name: argocd
-  patch: |-
+      value: "https://github.com/simonkrenger/knockout-argocd.git"
     - op: replace
-      path: /spec/sso/dex/groups
-      value:
-        - SOME-GROUP
-    - op: replace
-      path: /spec/initialSSHKnownHosts/keys
-      value: |
-        github.com ssh-rsa ....
-    - op: replace
-      path: /spec/rbac/policy
-      value: |
-        g, SOME-GROUP
+      path: /spec/template/spec/source/repoURL
+      value: "https://github.com/simonkrenger/knockout-argocd.git"
 - target:
     version: v1
     kind: Secret
     name: my-repo
   patch: |-
     - op: replace
-      path: /stringData/sshPrivateKey
-      value: xxx
-    - op: replace
       path: /stringData/url
-      value: ssh://...
+      value: "https://github.com/simonkrenger/knockout-argocd.git"
