@@ -17,10 +17,10 @@ patches:
   patch: |-
     - op: replace
       path: /spec/generators/0/git/repoURL
-      value: "https://github.com/simonkrenger/knockout-argocd.git"
+      value: "https://github.com/jgwest/knockout-argocd.git"
     - op: replace
       path: /spec/template/spec/source/repoURL
-      value: "https://github.com/simonkrenger/knockout-argocd.git"
+      value: "https://github.com/jgwest/knockout-argocd.git"
 - target:
     version: v1
     kind: Secret
@@ -28,4 +28,4 @@ patches:
   patch: |-
     - op: replace
       path: /stringData/url
-      value: "https://github.com/simonkrenger/knockout-argocd.git"
+      value: "https://github.com/jgwest/knockout-argocd.git"
