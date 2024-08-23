@@ -3,6 +3,7 @@ kind: ArgoCD
 metadata:
   name: argocd
 spec:
+  image: quay.io/jgwest-redhat/argocd:latest
   controller:
     processors:
       operation: 25
